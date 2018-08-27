@@ -4,11 +4,18 @@
   "description": "A Twitter bot to track the progress of LTS releases of Node.js.",
   "main": "app.js",
   "dependencies": {
-    "moment": "^2.22.2"
+    "express": "^4.16.3",
+    "isomorphic-unfetch": "^2.1.1",
+    "moment": "^2.22.2",
+    "next": "^6.1.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "next start"
   },
   "author": "Tierney Cyren <hello@bnb.im> (http://bnb.im)",
   "license": "MIT"
