@@ -1,29 +1,23 @@
 import Layout from '../components/layout.js'
-import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import moment from 'moment'
 
-
 const Index = (props) => (
   <Layout>
-    <h1>🤖 node.js ltsbot 🤖</h1>
+    <h1>🤖 LTS Releases 🤖</h1>
     <ul>
-      {props.releases.map(({release}) => (
-        <li key={release.version}>
-          <Link as={`/v/${release.version}`} href={`/release?version=${release.version}`}>
-            <a>{release.version}</a>
-          </Link>
-        </li>
+    {props.releases.map(({release}) => (
+console.log(typeof release)
       ))}
     </ul>
   </Layout>
 )
 
 Index.getInitialProps = async function() {
-  const releaseData = await fetch('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json')
-  const schedule = await releaseData.json()
-  
-  let data = Object.keys(schedule).filter(v => {
+  let releaseData = await fetch('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json')
+  let schedule = await releaseData.json()
+    
+  const data = Object.keys(schedule).filter(v => {
     let release = schedule[v]
     if(moment(release.start).isBefore() && moment(release.end).isAfter()) return true
     return false
@@ -38,7 +32,9 @@ Index.getInitialProps = async function() {
     }
   });
 
-  console.log("Dataset:", data)
+  console.log(`Release data fetched. Logging count: ${data.length}`)
+  console.log('Logging type of object before being passed as prop: ' + typeof data)
+
 
   return {
     releases: data
